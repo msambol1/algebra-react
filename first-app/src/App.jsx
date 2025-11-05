@@ -10,7 +10,7 @@ function App() {
   const [count, setCount] = useState(0)
   const id = nanoid();
   //const sum = add(1, 2);
-  const vrijednost = recenica("Ovo je neki duži tekst koji treba skratiti", 5, "$");
+  const vrijednost = recenica("Moj tekst koji treba skratiti", 5, "$");
 
   return (
     <>
