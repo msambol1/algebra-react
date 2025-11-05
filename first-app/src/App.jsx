@@ -1,10 +1,16 @@
+import { nanoid } from 'nanoid';
 import { useState } from 'react'
+//import zbrajanje, { multiply } from "./library/math.js";
+import recenica from "./library/string.js";
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const id = nanoid();
+  //const sum = add(1, 2);
+  const vrijednost = recenica("Ovo je neki duži tekst koji treba skratiti", 5, "$");
 
   return (
     <>
@@ -16,7 +22,7 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
+      <h1>Vite + React {id} {vrijednost}</h1>
       <p>Hello World</p>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
