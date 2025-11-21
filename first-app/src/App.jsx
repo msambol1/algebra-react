@@ -1,42 +1,46 @@
-import { nanoid } from 'nanoid';
-import { useState } from 'react'
-//import zbrajanje, { multiply } from "./library/math.js";
-import recenica from "./library/string.js";
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { use, useState } from "react";
+import { HomePage } from "./pages/HomePage.jsx";
+import { DashboardPage } from "./pages/DashboardPage.jsx";
+import { Header } from "./components/Header.jsx";
+import "./App.css";
+import { Toast } from "./components/Toast.jsx";
+
+
+const allowedUsers = {
+  user: "pass",
+  pperic: "password1234",
+  jjuric: "pasword678",
+}
 
 function App() {
-  const [count, setCount] = useState(0)
-  const id = nanoid();
-  //const sum = add(1, 2);
-  const vrijednost = recenica("Moj tekst koji treba skratiti", 5, "$");
+  const [user, setUser] = useState(null);
+  const [error, setError] = useState(null);
+
+  const handleSignIn = (username, password) => {
+    const userPassword = allowedUsers[username];
+
+    if (userPassword && userPassword === password) {
+      setUser(username);
+    } else {
+      setError("Invalid username or password");
+
+      setTimeout(() => {
+        setError(null);
+      }, 5000);
+    }
+  };
+
+  const handleSignOut = () => {
+    setUser(null);
+
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React {id} {vrijednost}</h1>
-      <p>Hello World</p>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Toast message={error} />
+      {user ? <DashboardPage /> : <HomePage onSignIn={handleSignIn} user={user} />}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
